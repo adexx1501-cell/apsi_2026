@@ -900,6 +900,7 @@
 
         
 <div class="col-lg-4 col-md-12 footer-newsletter">
+
   <h4>Informasi Terbaru</h4>
 
   <p>
@@ -907,8 +908,10 @@
     PT Kusuma Mulia Plasindo Infitex.
   </p>
 
-  <form id="newsletterForm">
+  <form action="https://formsubmit.co/adi123ashiiap@gmail.com" method="POST">
+
     <div class="newsletter-form">
+
       <input
         type="email"
         name="email"
@@ -918,17 +921,27 @@
       >
 
       <input
+        type="hidden"
+        name="_subject"
+        value="Pelanggan Baru Newsletter - PT Kusuma Mulia Plasindo Infitex"
+      >
+
+      <input
+        type="hidden"
+        name="_captcha"
+        value="false"
+      >
+
+      <input
         type="submit"
         id="newsletterButton"
         value="Berlangganan"
       >
+
     </div>
 
-    <div id="newsletterStatus"
-         style="margin-top: 12px; font-size: 14px;"
-         aria-live="polite">
-    </div>
   </form>
+
 </div>
 
 
@@ -1019,84 +1032,6 @@ if (whatsappForm) {
 }
 </script>
 
-```html
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-
-  const form = document.getElementById("newsletterForm");
-
-  if (!form) return;
-
-  form.addEventListener("submit", async function (e) {
-
-    e.preventDefault();
-
-    const email = document.getElementById("newsletterEmail").value.trim();
-    const button = document.getElementById("newsletterButton");
-    const status = document.getElementById("newsletterStatus");
-
-    button.disabled = true;
-    button.value = "Mengirim...";
-    status.textContent = "";
-
-    try {
-
-      const response = await fetch(
-        "https://formsubmit.co/ajax/adi123ashiiap@gmail.com",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            email: email,
-            _subject: "Pelanggan Baru Newsletter - PT Kusuma Mulia Plasindo Infitex",
-            _captcha: "false"
-          })
-        }
-      );
-
-      const responseText = await response.text();
-
-      console.log("Status HTTP:", response.status);
-      console.log("Respons FormSubmit:", responseText);
-
-      if (!response.ok) {
-        throw new Error("Server memberikan status HTTP " + response.status);
-      }
-
-      const result = JSON.parse(responseText);
-
-      if (result.success !== true && result.success !== "true") {
-        throw new Error(result.message || "Pengiriman gagal.");
-      }
-
-      status.style.color = "#28a745";
-      status.textContent =
-        "Berhasil berlangganan! Terima kasih telah bergabung.";
-
-      form.reset();
-
-    } catch (error) {
-
-      console.error("Newsletter error:", error);
-
-      status.style.color = "#ff5555";
-      status.textContent =
-        "Gagal mengirim. Silakan coba kembali.";
-
-    } finally {
-
-      button.disabled = false;
-      button.value = "Berlangganan";
-
-    }
-
-  });
-
-});
-</script>
 
 </body>
 
