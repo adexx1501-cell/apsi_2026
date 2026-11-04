@@ -199,17 +199,20 @@
             PT Kusuma Mulia Plasindo Infitex.
           </p>
 
-          <form action="forms/newsletter.php" method="post" class="php-email-form">
-            <div class="newsletter-form">
-              <input type="email" name="email" placeholder="Masukkan email Anda" required>
-              <input type="submit" value="Berlangganan">
-            </div>
-            <div class="loading">Memproses...</div>
-            <div class="error-message"></div>
-            <div class="sent-message">
-              Permintaan berlangganan telah dikirim.
-            </div>
-          </form>
+          <form id="newsletterForm" class="php-email-form">
+
+  <input type="email" name="email" placeholder="Masukkan email Anda" required>
+
+  <input type="hidden" name="jenis" value="berlangganan">
+  <input type="hidden" name="website" value="">
+
+  <input type="submit" value="Berlangganan">
+
+  <div class="loading">Mengirim...</div>
+  <div class="error-message"></div>
+  <div class="sent-message">Permintaan berlangganan berhasil dikirim!</div>
+
+</form>
         </div>
 
       </div>
@@ -372,6 +375,56 @@
       });
     });
   </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+  const newsletterForm = document.getElementById("newsletterForm");
+
+  if (newsletterForm) {
+
+    newsletterForm.addEventListener("submit", async function (e) {
+
+      e.preventDefault();
+
+      const loading = newsletterForm.querySelector(".loading");
+      const errorMessage = newsletterForm.querySelector(".error-message");
+      const sentMessage = newsletterForm.querySelector(".sent-message");
+
+      loading.style.display = "block";
+      errorMessage.style.display = "none";
+      sentMessage.style.display = "none";
+
+      // GANTI dengan URL Web App Google Apps Script yang sama
+      // dengan yang digunakan pada halaman utama.
+      const scriptURL = "https://script.google.com/macros/s/AKfycbxv_5OCzBP_AlHjopzul57_I_-KRD-FB0cIW6srou6k9KuKNTsCftU9sItUglcJG-wR8Q/exec";
+
+      const data = new URLSearchParams(new FormData(newsletterForm));
+
+      try {
+
+        await fetch(scriptURL, {
+          method: "POST",
+          mode: "no-cors",
+          body: data
+        });
+
+        loading.style.display = "none";
+        sentMessage.style.display = "block";
+        newsletterForm.reset();
+
+      } catch (error) {
+
+        loading.style.display = "none";
+        errorMessage.textContent = "Gagal mengirim. Silakan coba kembali.";
+        errorMessage.style.display = "block";
+
+      }
+
+    });
+
+  }
+
+});
+</script>
 </body>
 </html>
