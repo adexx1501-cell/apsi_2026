@@ -199,23 +199,26 @@
             PT Kusuma Mulia Plasindo Infitex.
           </p>
 
-          <<form id="newsletterForm">
+         ```html
+<form id="newsletterForm">
 
     <input type="email" name="email"
-    placeholder="Masukkan email Anda" required>
+        placeholder="Masukkan email Anda" required>
 
     <input type="hidden" name="jenis"
-    value="berlangganan">
+        value="berlangganan">
 
     <input type="hidden" name="website" value="">
 
     <input type="submit" value="Berlangganan">
 
-    <div class="loading">Mengirim...</div>
+    <div class="loading" style="display: none;">
+        Mengirim...
+    </div>
 
-    <div class="error-message"></div>
+    <div class="error-message" style="display: none;"></div>
 
-    <div class="sent-message">
+    <div class="sent-message" style="display: none;">
         Permintaan berlangganan berhasil dikirim!
     </div>
 
