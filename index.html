@@ -1040,22 +1040,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
 
-      const response = await fetch(
-        "https://formsubmit.co/ajax/adi123ashiiap@gmail.com",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            email: email,
-            _subject: "Pelanggan Baru Newsletter - PT Kusuma Mulia Plasindo Infitex"
-          })
-        }
-      );
+     const response = await fetch(
+  "https://formsubmit.co/ajax/adi123ashiiap@gmail.com",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      email: email,
+      _subject: "Pelanggan Baru Newsletter - PT Kusuma Mulia Plasindo Infitex",
+      _captcha: "false"
+    })
+  }
+);
 
-      const result = await response.json();
+const responseText = await response.text();
+
+console.log("Status HTTP:", response.status);
+console.log("Respons FormSubmit:", responseText);
+
+if (!response.ok) {
+  throw new Error("Server memberikan status HTTP " + response.status);
+}
+   const result = await response.json();
 console.log("Respons FormSubmit:", result);
       if (
         !response.ok ||
