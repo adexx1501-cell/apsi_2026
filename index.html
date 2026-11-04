@@ -1070,15 +1070,15 @@ console.log("Respons FormSubmit:", result);
 
       form.reset();
 
-    } catch (error) {
+   } catch (error) {
 
-      console.error("Newsletter error:", error);
+  console.error("Newsletter error:", error);
 
-      status.style.color = "#ff5555";
-      status.textContent =
-        "Gagal mengirim. Silakan coba kembali.";
+  status.style.color = "#ff5555";
+  status.textContent =
+    "Gagal mengirim: " + error.message;
 
-    } finally {
+} finally {
 
       button.disabled = false;
       button.value = "Berlangganan";
