@@ -1019,6 +1019,7 @@ if (whatsappForm) {
 }
 </script>
 
+```html
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -1040,36 +1041,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
 
-     const response = await fetch(
-  "https://formsubmit.co/ajax/adi123ashiiap@gmail.com",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify({
-      email: email,
-      _subject: "Pelanggan Baru Newsletter - PT Kusuma Mulia Plasindo Infitex",
-      _captcha: "false"
-    })
-  }
-);
+      const response = await fetch(
+        "https://formsubmit.co/ajax/adi123ashiiap@gmail.com",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            email: email,
+            _subject: "Pelanggan Baru Newsletter - PT Kusuma Mulia Plasindo Infitex",
+            _captcha: "false"
+          })
+        }
+      );
 
-const responseText = await response.text();
+      const responseText = await response.text();
 
-console.log("Status HTTP:", response.status);
-console.log("Respons FormSubmit:", responseText);
+      console.log("Status HTTP:", response.status);
+      console.log("Respons FormSubmit:", responseText);
 
-if (!response.ok) {
-  throw new Error("Server memberikan status HTTP " + response.status);
-}
-   const result = await response.json();
-console.log("Respons FormSubmit:", result);
-      if (
-        !response.ok ||
-        (result.success !== true && result.success !== "true")
-      ) {
+      if (!response.ok) {
+        throw new Error("Server memberikan status HTTP " + response.status);
+      }
+
+      const result = JSON.parse(responseText);
+
+      if (result.success !== true && result.success !== "true") {
         throw new Error(result.message || "Pengiriman gagal.");
       }
 
@@ -1079,15 +1078,15 @@ console.log("Respons FormSubmit:", result);
 
       form.reset();
 
-   } catch (error) {
+    } catch (error) {
 
-  console.error("Newsletter error:", error);
+      console.error("Newsletter error:", error);
 
-  status.style.color = "#ff5555";
-  status.textContent =
-    "Gagal mengirim: " + error.message;
+      status.style.color = "#ff5555";
+      status.textContent =
+        "Gagal mengirim. Silakan coba kembali.";
 
-} finally {
+    } finally {
 
       button.disabled = false;
       button.value = "Berlangganan";
