@@ -199,18 +199,25 @@
             PT Kusuma Mulia Plasindo Infitex.
           </p>
 
-          <form id="newsletterForm" class="php-email-form">
+          <<form id="newsletterForm">
 
-  <input type="email" name="email" placeholder="Masukkan email Anda" required>
+    <input type="email" name="email"
+    placeholder="Masukkan email Anda" required>
 
-  <input type="hidden" name="jenis" value="berlangganan">
-  <input type="hidden" name="website" value="">
+    <input type="hidden" name="jenis"
+    value="berlangganan">
 
-  <input type="submit" value="Berlangganan">
+    <input type="hidden" name="website" value="">
 
-  <div class="loading">Mengirim...</div>
-  <div class="error-message"></div>
-  <div class="sent-message">Permintaan berlangganan berhasil dikirim!</div>
+    <input type="submit" value="Berlangganan">
+
+    <div class="loading">Mengirim...</div>
+
+    <div class="error-message"></div>
+
+    <div class="sent-message">
+        Permintaan berlangganan berhasil dikirim!
+    </div>
 
 </form>
         </div>
@@ -375,56 +382,120 @@
       });
     });
   </script>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
   const newsletterForm = document.getElementById("newsletterForm");
 
-  if (newsletterForm) {
+  if (!newsletterForm) return;
 
-    newsletterForm.addEventListener("submit", async function (e) {
+  newsletterForm.addEventListener("submit", function (e) {
 
-      e.preventDefault();
+    e.preventDefault();
 
-      const loading = newsletterForm.querySelector(".loading");
-      const errorMessage = newsletterForm.querySelector(".error-message");
-      const sentMessage = newsletterForm.querySelector(".sent-message");
+    const loading = newsletterForm.querySelector(".loading");
+    const errorMessage = newsletterForm.querySelector(".error-message");
+    const sentMessage = newsletterForm.querySelector(".sent-message");
+    const submitButton = newsletterForm.querySelector('[type="submit"]');
 
-      loading.style.display = "block";
-      errorMessage.style.display = "none";
-      sentMessage.style.display = "none";
+    const email = newsletterForm.querySelector('[name="email"]').value.trim();
+    const website = newsletterForm.querySelector('[name="website"]').value;
 
-      // GANTI dengan URL Web App Google Apps Script yang sama
-      // dengan yang digunakan pada halaman utama.
-      const scriptURL = "https://script.google.com/macros/s/AKfycbxv_5OCzBP_AlHjopzul57_I_-KRD-FB0cIW6srou6k9KuKNTsCftU9sItUglcJG-wR8Q/exec";
+    loading.style.display = "block";
+    errorMessage.style.display = "none";
+    sentMessage.style.display = "none";
 
-      const data = new URLSearchParams(new FormData(newsletterForm));
+    submitButton.disabled = true;
 
-      try {
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxv_5OCzBP_AlHjopzul57_I_-KRD-FB0cIW6srou6k9KuKNTsCftU9sItUglcJG-wR8Q/exec";
 
-        await fetch(scriptURL, {
-          method: "POST",
-          mode: "no-cors",
-          body: data
-        });
+    const script = document.createElement("script");
 
-        loading.style.display = "none";
+    let selesai = false;
+
+    function bersihkan() {
+      loading.style.display = "none";
+      submitButton.disabled = false;
+      delete window.newsletterCallback;
+      script.remove();
+    }
+
+    window.newsletterCallback = function (result) {
+
+      if (selesai) return;
+      selesai = true;
+
+      bersihkan();
+
+      if (result.success) {
+
+        sentMessage.textContent = result.message;
         sentMessage.style.display = "block";
+
         newsletterForm.reset();
 
-      } catch (error) {
+      } else {
 
-        loading.style.display = "none";
-        errorMessage.textContent = "Gagal mengirim. Silakan coba kembali.";
+        errorMessage.textContent = result.message || "Pengiriman gagal.";
         errorMessage.style.display = "block";
 
       }
 
+    };
+
+    const params = new URLSearchParams({
+      action: "newsletter",
+      email: email,
+      jenis: "berlangganan",
+      website: website,
+      callback: "newsletterCallback",
+      _: Date.now().toString()
     });
 
-  }
+    script.src = scriptURL + "?" + params.toString();
+
+    script.onerror = function () {
+
+      if (selesai) return;
+      selesai = true;
+
+      bersihkan();
+
+      errorMessage.textContent =
+        "Gagal menghubungi server. Silakan coba kembali.";
+
+      errorMessage.style.display = "block";
+
+    };
+
+    const timeout = setTimeout(function () {
+
+      if (selesai) return;
+      selesai = true;
+
+      bersihkan();
+
+      errorMessage.textContent =
+        "Server tidak merespons. Silakan coba kembali.";
+
+      errorMessage.style.display = "block";
+
+    }, 20000);
+
+    const callbackLama = window.newsletterCallback;
+
+    window.newsletterCallback = function (result) {
+      clearTimeout(timeout);
+      callbackLama(result);
+    };
+
+    document.body.appendChild(script);
+
+  });
 
 });
 </script>
+
 </body>
 </html>
