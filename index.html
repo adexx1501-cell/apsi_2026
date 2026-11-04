@@ -1056,7 +1056,7 @@ document.addEventListener("DOMContentLoaded", function () {
       );
 
       const result = await response.json();
-
+console.log("Respons FormSubmit:", result);
       if (
         !response.ok ||
         (result.success !== true && result.success !== "true")
