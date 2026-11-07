@@ -2284,4 +2284,8 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 15px;
   }
 }
-
+@media (min-width: 992px) {
+  #tabs .col-lg-5 .nav-tabs .nav-link {
+    align-items: flex-start;
+  }
+}
