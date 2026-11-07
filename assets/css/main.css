@@ -2043,3 +2043,23 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
   color: #777777;
 }
+/* Susunan gambar dan konten detail layanan */
+
+#service-details .services-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+#service-details .services-list {
+    margin-bottom: 15px;
+}
+
+#service-details h4 {
+    margin-top: 10px;
+}
+
+#service-details .row.align-items-start {
+    align-items: flex-start !important;
+}
