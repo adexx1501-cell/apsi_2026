@@ -2063,3 +2063,18 @@ h1, h2, h3, h4, h5, h6 {
 #service-details .row.align-items-start {
     align-items: flex-start !important;
 }
+
+/* Menyamakan tinggi gambar dengan teks Tentang Kami */
+.about .about-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* Tampilan pada perangkat HP */
+@media (max-width: 991px) {
+  .about .about-image {
+    height: 300px;
+  }
+}
