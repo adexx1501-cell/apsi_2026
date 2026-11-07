@@ -2064,14 +2064,60 @@ h1, h2, h3, h4, h5, h6 {
     align-items: flex-start !important;
 }
 
-/* Menyamakan tinggi gambar dengan teks Tentang Kami */
-.about .about-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 15px;
+/* ==================================================
+   MENYAMAKAN TINGGI GAMBAR TENTANG KAMI
+================================================== */
+
+.about .row.align-items-stretch {
+  display: flex;
+  align-items: stretch;
 }
 
+.about .row.align-items-stretch > div {
+  display: flex;
+}
+
+.about .about-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 15px;
+}
+/* ==================================================
+   MENYAMAKAN TINGGI GAMBAR KOMITMEN MUTU
+================================================== */
+
+.tabs .row {
+  align-items: stretch;
+}
+
+.tabs .row > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs .row > div:last-child .tab-content {
+  flex: 1;
+  display: flex;
+}
+
+.tabs .tab-content .tab-pane.active {
+  width: 100%;
+  height: 100%;
+}
+
+.tabs .tab-content .tab-pane img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 15px;
+}
 /* Tampilan pada perangkat HP */
 @media (max-width: 991px) {
   .about .about-image {
