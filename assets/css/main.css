@@ -1976,3 +1976,10 @@ h1, h2, h3, h4, h5, h6 {
 .starter-section p {
   text-align: justify;
 }
+/* FAQ tertutup saat halaman pertama kali dibuka */
+.faq .faq-container .faq-item:not(.faq-active) .faq-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  opacity: 0;
+}
