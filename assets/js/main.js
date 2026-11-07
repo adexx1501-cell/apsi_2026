@@ -188,171 +188,174 @@
   window.addEventListener("load", initSwiper);
 
 
-  /**
-   * Initiate GLightbox
-   * Galeri struktur organisasi tetap terpisah.
-   * Galeri produk akan mengikuti filter Portfolio.
-   */
-  if (typeof GLightbox !== 'undefined') {
 
-    GLightbox({
-      selector: '.glightbox[data-gallery="organization-gallery"]'
-    });
+/**
+ * Initiate GLightbox
+ * Galeri struktur organisasi tetap terpisah.
+ * Galeri produk mengikuti filter Portfolio.
+ */
+if (typeof GLightbox !== 'undefined') {
 
-  }
+  GLightbox({
+    selector: '.glightbox[data-gallery="organization-gallery"]'
+  });
+
+}
 
 
-  /**
-   * Init isotope layout and filters
-   */
-  if (
-    typeof imagesLoaded !== 'undefined' &&
-    typeof Isotope !== 'undefined'
-  ) {
+/**
+ * Init isotope layout and filters
+ */
+if (
+  typeof imagesLoaded !== 'undefined' &&
+  typeof Isotope !== 'undefined'
+) {
 
-    document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
+  document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
 
-      const isotopeContainer = isotopeItem.querySelector('.isotope-container');
+    const isotopeContainer = isotopeItem.querySelector('.isotope-container');
 
-      if (!isotopeContainer) return;
+    if (!isotopeContainer) return;
 
-      let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
-      let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
-      let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
+    let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
+    let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
+    let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
-      let initIsotope;
-      let portfolioLightbox = null;
+    let initIsotope = null;
+    let portfolioLightbox = null;
+
+
+    /**
+     * Buat satu instance GLightbox khusus produk
+     * Daftar gambarnya akan diperbarui saat diklik
+     */
+    if (typeof GLightbox !== 'undefined') {
+
+      portfolioLightbox = GLightbox({
+        selector: null,
+        loop: true
+      });
+
+    }
+
+
+    /**
+     * Klik gambar produk
+     */
+    isotopeContainer.addEventListener('click', function(e) {
+
+      const link = e.target.closest('a.glightbox');
+
+      if (!link) return;
+
+      e.preventDefault();
+
+      if (!initIsotope || !portfolioLightbox) return;
 
 
       /**
-       * Update galeri produk sesuai gambar yang sedang ditampilkan
+       * Ambil semua gambar yang sedang tampil
+       * berdasarkan filter Isotope
        */
-      function updatePortfolioLightbox(filteredItems) {
+      const visibleLinks = initIsotope.filteredItems
+        .map(function(item) {
 
-        // Hapus galeri produk sebelumnya
-        if (portfolioLightbox) {
-          portfolioLightbox.destroy();
-          portfolioLightbox = null;
+          return item.element.querySelector('a.glightbox');
+
+        })
+        .filter(function(item) {
+
+          return item !== null;
+
+        });
+
+
+      /**
+       * Susun gambar untuk GLightbox
+       */
+      const galleryElements = visibleLinks.map(function(item) {
+
+        return {
+          href: item.href,
+          type: 'image'
+        };
+
+      });
+
+
+      /**
+       * Cari posisi gambar yang diklik
+       */
+      const clickedIndex = visibleLinks.indexOf(link);
+
+      if (clickedIndex === -1) return;
+
+
+      /**
+       * Masukkan gambar sesuai filter aktif
+       */
+      portfolioLightbox.setElements(galleryElements);
+
+
+      /**
+       * Buka gambar sesuai posisi yang diklik
+       */
+      portfolioLightbox.openAt(clickedIndex);
+
+    });
+
+
+    /**
+     * Inisialisasi Isotope
+     */
+    imagesLoaded(isotopeContainer, function() {
+
+      initIsotope = new Isotope(isotopeContainer, {
+        itemSelector: '.isotope-item',
+        layoutMode: layout,
+        filter: filter,
+        sortBy: sort
+      });
+
+    });
+
+
+    /**
+     * Portfolio filters
+     */
+    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
+
+      filters.addEventListener('click', function() {
+
+        const activeFilter = isotopeItem.querySelector(
+          '.isotope-filters .filter-active'
+        );
+
+        if (activeFilter) {
+          activeFilter.classList.remove('filter-active');
         }
 
-        // Hapus penanda galeri aktif dari semua gambar
-        isotopeContainer.querySelectorAll('a.glightbox').forEach(link => {
+        this.classList.add('filter-active');
 
-          link.classList.remove('portfolio-lightbox-active');
+        if (initIsotope) {
 
-          // Simpan galeri asli agar tidak hilang
-          if (!link.hasAttribute('data-original-gallery')) {
-            link.setAttribute(
-              'data-original-gallery',
-              link.getAttribute('data-gallery') || ''
-            );
-          }
-
-          // Kembalikan atribut galeri asli
-          link.setAttribute(
-            'data-gallery',
-            link.getAttribute('data-original-gallery')
-          );
-
-        });
-
-
-        // Aktifkan hanya gambar yang sesuai filter Isotope
-        filteredItems.forEach(item => {
-
-          const element = item.element;
-
-          if (!element) return;
-
-          const link = element.matches('a.glightbox')
-            ? element
-            : element.querySelector('a.glightbox');
-
-          if (!link) return;
-
-          link.classList.add('portfolio-lightbox-active');
-
-          // Semua gambar yang tampil masuk satu galeri aktif
-          link.setAttribute('data-gallery', 'portfolio-active');
-
-        });
-
-
-        // Buat ulang GLightbox berdasarkan gambar yang tampil
-        if (
-          typeof GLightbox !== 'undefined' &&
-          isotopeContainer.querySelector('.portfolio-lightbox-active')
-        ) {
-
-          portfolioLightbox = GLightbox({
-            selector: '.portfolio-lightbox-active'
+          initIsotope.arrange({
+            filter: this.getAttribute('data-filter')
           });
 
         }
 
-      }
+        if (typeof AOS !== 'undefined') {
+          AOS.refresh();
+        }
 
-
-      /**
-       * Inisialisasi Isotope
-       */
-      imagesLoaded(isotopeContainer, function() {
-
-        initIsotope = new Isotope(isotopeContainer, {
-          itemSelector: '.isotope-item',
-          layoutMode: layout,
-          filter: filter,
-          sortBy: sort
-        });
-
-
-        // Perbarui galeri setiap kali filter berubah
-        initIsotope.on('arrangeComplete', function(filteredItems) {
-
-          updatePortfolioLightbox(filteredItems);
-
-        });
-
-
-        // Atur galeri sesuai filter awal halaman
-        updatePortfolioLightbox(initIsotope.filteredItems);
-
-      });
-
-
-      /**
-       * Portfolio filters
-       */
-      isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
-
-        filters.addEventListener('click', function() {
-
-          const activeFilter = isotopeItem.querySelector('.isotope-filters .filter-active');
-
-          if (activeFilter) {
-            activeFilter.classList.remove('filter-active');
-          }
-
-          this.classList.add('filter-active');
-
-          if (initIsotope) {
-            initIsotope.arrange({
-              filter: this.getAttribute('data-filter')
-            });
-          }
-
-          if (typeof AOS !== 'undefined') {
-            AOS.refresh();
-          }
-
-        }, false);
-
-      });
+      }, false);
 
     });
 
-  }
+  });
 
+}
 
   /**
    * Frequently Asked Questions Toggle
