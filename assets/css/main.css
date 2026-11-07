@@ -2164,12 +2164,6 @@ h1, h2, h3, h4, h5, h6 {
   object-position: center;
   border-radius: 15px;
 }
-/* Tampilan pada perangkat HP */
-@media (max-width: 991px) {
-  .about .about-image {
-    height: 300px;
-  }
-}
 /* ==================================================
    LOGO NAVBAR PT KUSUMA MULIA PLASINDO INFITEX
 ================================================== */
