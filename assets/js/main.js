@@ -189,14 +189,37 @@
   window.addEventListener("load", initSwiper);
 
 
-  /**
-   * Initiate glightbox
-   */
-  if (typeof GLightbox !== 'undefined') {
-    const glightbox = GLightbox({
-      selector: '.glightbox'
-    });
-  }
+/**
+ * Initiate GLightbox
+ */
+if (typeof GLightbox !== 'undefined') {
+
+  // Galeri produk Rayon
+  GLightbox({
+    selector: '.glightbox[data-gallery="portfolio-gallery-rayon"]'
+  });
+
+  // Galeri produk Katun
+  GLightbox({
+    selector: '.glightbox[data-gallery="portfolio-gallery-katun"]'
+  });
+
+  // Galeri produk Poliester
+  GLightbox({
+    selector: '.glightbox[data-gallery="portfolio-gallery-poliester"]'
+  });
+
+  // Galeri produk Poliester Katun
+  GLightbox({
+    selector: '.glightbox[data-gallery="portfolio-gallery-tc"]'
+  });
+
+  // Galeri struktur organisasi
+  GLightbox({
+    selector: '.glightbox[data-gallery="organization-gallery"]'
+  });
+
+}
 
 
   /**
