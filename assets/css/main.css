@@ -1987,26 +1987,38 @@ h1, h2, h3, h4, h5, h6 {
    STRUKTUR ORGANISASI PERUSAHAAN
 ================================================== */
 
+/* Struktur Organisasi Perusahaan */
 .organization-chart {
   background: #ffffff;
-  padding: 25px;
+  padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid #eeeeee;
   margin-top: 20px;
-  overflow: hidden;
+  width: 100%;
+  overflow: visible;
+  text-align: center;
+}
+
+.organization-chart a {
+  display: block;
+  width: 100%;
 }
 
 .organization-chart img {
+  display: block;
   width: 100%;
-  max-height: 750px;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
   object-fit: contain;
   border-radius: 5px;
+  margin: 0 auto;
   transition: transform 0.3s ease;
 }
 
 .organization-chart img:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 .organization-caption {
