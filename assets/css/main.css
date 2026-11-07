@@ -2326,3 +2326,48 @@ h1, h2, h3, h4, h5, h6 {
     white-space: normal;
   }
 }
+/* Membuat daftar tab memenuhi tinggi kolom */
+#tabs .row.justify-content-between > .col-lg-5 {
+  display: flex;
+  align-items: stretch;
+}
+
+#tabs .nav-tabs {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#tabs .nav-tabs .nav-item {
+  flex: 1 1 0;
+  display: flex;
+}
+
+#tabs .nav-tabs .nav-link {
+  width: 100%;
+  height: 100%;
+}
+
+/* Gambar tetap mengikuti tinggi kolom kanan */
+#tabs .row.justify-content-between > .col-lg-6 {
+  display: flex;
+  align-items: stretch;
+}
+
+#tabs .tab-content {
+  width: 100%;
+}
+
+#tabs .tab-pane.active.show,
+#tabs .tab-pane.active.show img {
+  width: 100%;
+  height: 100%;
+}
+
+#tabs .tab-pane.active.show img {
+  display: block;
+  object-fit: cover;
+  border-radius: 15px;
+}
