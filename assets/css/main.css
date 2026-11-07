@@ -2136,7 +2136,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* ==================================================
-   MENYAMAKAN TINGGI GAMBAR KOMITMEN MUTU
+   KOMITMEN MUTU - PENYESUAIAN TINGGI GAMBAR
 ================================================== */
 
 /* Baris utama */
@@ -2145,27 +2145,29 @@ h1, h2, h3, h4, h5, h6 {
   align-items: stretch;
 }
 
-/* Kolom teks kiri */
+/* Kolom teks kiri menjadi acuan tinggi */
 #tabs .row.justify-content-between > .col-lg-5 {
   display: flex;
-  align-items: stretch;
+  align-self: stretch;
 }
 
 #tabs .nav-tabs {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  width: 100%;
   margin: 0;
+  border: 0;
 }
 
+/* Pilihan tab */
 #tabs .nav-tabs .nav-item {
-  flex: 1;
   display: flex;
+  flex: 1 1 0;
+  width: 100%;
 }
 
 #tabs .nav-tabs .nav-link {
+  display: flex;
   width: 100%;
   height: 100%;
 }
@@ -2173,27 +2175,22 @@ h1, h2, h3, h4, h5, h6 {
 /* Kolom gambar kanan */
 #tabs .row.justify-content-between > .col-lg-6 {
   display: flex;
-  align-items: stretch;
+  align-self: stretch;
 }
 
 #tabs .tab-content {
-  width: 100%;
-  height: 100%;
   position: relative;
+  width: 100%;
+  min-width: 0;
 }
 
-/* Semua tab gambar */
-#tabs .tab-pane {
+/* Gambar mengikuti tinggi kolom teks */
+#tabs .tab-pane.active.show {
   width: 100%;
   height: 100%;
 }
 
-/* Gambar aktif */
-#tabs .tab-pane.active {
-  display: block;
-}
-
-#tabs .tab-pane img {
+#tabs .tab-pane.active.show img {
   display: block;
   width: 100%;
   height: 100%;
@@ -2208,12 +2205,24 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
   }
 
-  #tabs .tab-content {
-    height: 300px;
+  #tabs .row.justify-content-between > .col-lg-5 {
+    width: 100%;
+  }
+
+  #tabs .row.justify-content-between > .col-lg-6 {
+    width: 100%;
     margin-top: 20px;
   }
 
-  #tabs .tab-pane img {
+  #tabs .tab-content {
+    height: 300px;
+  }
+
+  #tabs .tab-pane.active.show {
+    height: 300px;
+  }
+
+  #tabs .tab-pane.active.show img {
     height: 300px;
   }
 }
