@@ -921,6 +921,8 @@ section,
 }
 
 /*--------------------------------------------------------------
+
+/*--------------------------------------------------------------
 # Tabs Section
 --------------------------------------------------------------*/
 .tabs .nav-tabs {
@@ -936,14 +938,24 @@ section,
   margin-bottom: 0;
 }
 
-.tabs .nav-link {
-  color: var(--heading-color);
-  border: 0;
+.tabs .nav-link,
+.tabs .nav-link:hover,
+.tabs .nav-link:focus,
+.tabs .nav-link:active,
+.tabs .nav-link.active,
+.tabs .nav-link.active:hover,
+.tabs .nav-link.active:focus {
+  color: var(--heading-color) !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
   padding: 30px;
-  transition: 0.3s;
   border-radius: 10px;
   display: flex;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .tabs .nav-link i {
@@ -958,7 +970,7 @@ section,
   font-size: 22px;
   flex-shrink: 0;
   border-radius: 50px;
-  box-shadow: 0 2px 4px rgba(101, 7, 7, 0.8);
+  box-shadow: 0 2px 4px rgba(101, 7, 7, 0.15);
 }
 
 .tabs .nav-link h4 {
@@ -971,15 +983,6 @@ section,
 .tabs .nav-link p {
   font-size: 15px;
   margin: 0;
-}
-
-.tabs .nav-link:hover {
-  background: color-mix(in srgb, var(--accent-color), transparent 96%);
-}
-
-.tabs .nav-link.active {
-  background: color-mix(in srgb, var(--accent-color), transparent 96%);
-  color: var(--default-color);
 }
 
 .tabs .tab-pane img {
@@ -1923,4 +1926,53 @@ h1, h2, h3, h4, h5, h6 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ==================================================
+   PENGATURAN TEKS RATA KANAN-KIRI (JUSTIFY)
+================================================== */
+
+/* Bagian Tentang Perusahaan */
+.about .about-content p {
+  text-align: justify;
+}
+
+/* Bagian Deskripsi Layanan */
+.services .service-item p {
+  text-align: justify;
+}
+
+/* Bagian Detail Layanan */
+.service-details p {
+  text-align: justify;
+}
+
+/* Bagian Deskripsi Produk */
+.portfolio .portfolio-description p {
+  text-align: justify;
+}
+
+/* Bagian FAQ */
+.faq .faq-content p {
+  text-align: justify;
+}
+
+/* Bagian Testimoni */
+.testimonials .testimonial-item p {
+  text-align: justify;
+}
+
+/* Bagian Kontak */
+.contact .info-item p {
+  text-align: justify;
+}
+
+/* Bagian Footer */
+.footer .footer-about p {
+  text-align: justify;
+}
+
+/* Bagian Deskripsi Umum */
+.starter-section p {
+  text-align: justify;
 }
