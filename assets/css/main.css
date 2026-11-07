@@ -2195,63 +2195,66 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==================================================
-   PENYESUAIAN TINGGI TAB DAN GAMBAR KOMITMEN MUTU
+   TAB KOMITMEN MUTU - TINGGI SEJAJAR
 ================================================== */
 
 @media (min-width: 992px) {
 
-  /* Menyamakan tinggi kedua kolom */
   #tabs .row.justify-content-between {
     display: flex;
     align-items: stretch;
   }
 
-  #tabs .row.justify-content-between > .col-lg-5,
-  #tabs .row.justify-content-between > .col-lg-6 {
+  /* Kolom kiri */
+  #tabs .row > .col-lg-5 {
     display: flex;
-    align-items: stretch;
   }
 
-  /* Kolom tiga tab */
   #tabs .col-lg-5 .nav-tabs {
     display: flex;
     flex-direction: column;
     width: 100%;
     margin: 0;
+    gap: 15px;
   }
 
-  #tabs .col-lg-5 .nav-tabs .nav-item {
-    display: flex;
-    flex: 1 1 0;
-    width: 100%;
-    margin-bottom: 15px;
-  }
-
-  #tabs .col-lg-5 .nav-tabs .nav-item:last-child {
-    margin-bottom: 0;
-  }
-
-  #tabs .col-lg-5 .nav-tabs .nav-link {
+  #tabs .col-lg-5 .nav-item {
     display: flex;
     flex: 1;
     width: 100%;
+    margin: 0;
   }
 
-  /* Wadah gambar */
-  #tabs .col-lg-6 .tab-content {
-    position: relative;
+  #tabs .col-lg-5 .nav-link {
+    display: flex;
+    flex: 1;
     width: 100%;
-    height: 100%;
+    align-items: center;
+  }
+
+  /* Kolom kanan */
+  #tabs .row > .col-lg-6 {
+    display: flex;
+  }
+
+  #tabs .col-lg-6 .tab-content {
+    display: grid;
+    width: 100%;
+    flex: 1;
     min-width: 0;
   }
 
-  /* Gambar tab aktif */
+  #tabs .col-lg-6 .tab-pane {
+    grid-area: 1 / 1;
+    min-width: 0;
+  }
+
   #tabs .col-lg-6 .tab-pane.active.show {
-    width: 100%;
+    display: block;
     height: 100%;
   }
 
-  #tabs .col-lg-6 .tab-pane.active.show img {
+  #tabs .col-lg-6 .tab-pane img {
     display: block;
     width: 100%;
     height: 100%;
@@ -2260,24 +2263,25 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Tablet dan HP */
+/* Tampilan HP */
 @media (max-width: 991px) {
 
   #tabs .col-lg-6 .tab-content {
+    display: grid;
     width: 100%;
     height: 300px;
     margin-top: 20px;
   }
 
-  #tabs .col-lg-6 .tab-pane.active.show {
-    height: 300px;
+  #tabs .col-lg-6 .tab-pane {
+    grid-area: 1 / 1;
   }
 
-  #tabs .col-lg-6 .tab-pane.active.show img {
-    display: block;
+  #tabs .col-lg-6 .tab-pane img {
     width: 100%;
     height: 300px;
     object-fit: cover;
     border-radius: 15px;
   }
 }
+
