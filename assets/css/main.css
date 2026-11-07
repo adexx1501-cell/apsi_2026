@@ -2170,3 +2170,19 @@ h1, h2, h3, h4, h5, h6 {
     height: 300px;
   }
 }
+/* Logo Navbar */
+.header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header .logo img.navbar-logo {
+  max-height: 45px;
+  width: auto;
+  object-fit: contain;
+}
+
+.header .logo .sitename {
+  margin: 0;
+}
