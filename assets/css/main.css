@@ -1863,12 +1863,31 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.7;
 }
 
-/* Produk */
-.portfolio .portfolio-content img {
-  width: 100%;
-  height: auto;
+/* ==================================================
+   JARAK ANTAR GAMBAR PRODUK
+================================================== */
+
+/* Memberikan jarak antar kolom gambar produk */
+.portfolio .portfolio-container {
+  row-gap: 20px;
+  column-gap: 20px;
 }
 
+/* Tampilan masing-masing gambar produk */
+.portfolio .portfolio-content {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+/* Ukuran gambar produk */
+.portfolio .portfolio-content img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
 .portfolio .portfolio-filters li:focus-visible {
   outline: 3px solid var(--accent-color);
   outline-offset: 3px;

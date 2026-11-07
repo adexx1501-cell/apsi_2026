@@ -1038,7 +1038,80 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+  const filterButtons = document.querySelectorAll(
+    ".portfolio-filters li"
+  );
+
+  const portfolioItems = document.querySelectorAll(
+    "#portfolio .portfolio-item"
+  );
+
+  const galleryMap = {
+    "filter-app": "portfolio-gallery-rayon",
+    "filter-product": "portfolio-gallery-katun",
+    "filter-branding": "portfolio-gallery-poliester",
+    "filter-books": "portfolio-gallery-tc"
+  };
+
+  function updateGallery(filter) {
+
+    portfolioItems.forEach(function (item) {
+
+      const link = item.querySelector("a.glightbox");
+
+      if (!link) return;
+
+      if (filter === "*") {
+
+        // Semua gambar masuk satu kelompok galeri
+        link.setAttribute(
+          "data-gallery",
+          "portfolio-gallery-all"
+        );
+
+      } else {
+
+        // Kembalikan kelompok sesuai kategori
+        Object.keys(galleryMap).forEach(function (category) {
+
+          if (item.classList.contains(category)) {
+
+            link.setAttribute(
+              "data-gallery",
+              galleryMap[category]
+            );
+
+          }
+
+        });
+
+      }
+
+    });
+
+  }
+
+  // Kondisi awal: filter Semua
+  updateGallery("*");
+
+  // Ketika filter diklik
+  filterButtons.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+
+      const filter = button.getAttribute("data-filter");
+
+      updateGallery(filter);
+
+    });
+
+  });
+
+});
+</script>
 
 <script>
 const whatsappForm = document.getElementById("whatsappForm");
