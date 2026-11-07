@@ -1020,13 +1020,16 @@ section,
 }
 
 
-/* Ukuran logo layanan disamakan dengan ikon bawaan */
+/* Logo layanan diperbesar agar tampak seimbang dengan ikon bawaan */
 .services .service-item .service-icon {
   display: block;
-  width: 80px;
-  height: 80px;
-  min-width: 80px;
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  flex: 0 0 72px;
   object-fit: contain;
+  transform: scale(1.3);
+  transform-origin: center;
   flex-shrink: 0;
   margin-right: 25px;
   position: static;
