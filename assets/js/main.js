@@ -189,23 +189,21 @@
 
 
 
-/**
- * Initiate GLightbox
- * Galeri struktur organisasi tetap terpisah.
- * Galeri produk mengikuti filter Portfolio.
- */
-if (typeof GLightbox !== 'undefined') {
 
+/**
+ * GLightbox dan Isotope Portfolio
+ * Navigasi gambar mengikuti produk yang sedang ditampilkan.
+ */
+
+// Galeri struktur organisasi
+if (typeof GLightbox !== 'undefined') {
   GLightbox({
     selector: '.glightbox[data-gallery="organization-gallery"]'
   });
-
 }
 
 
-/**
- * Init isotope layout and filters
- */
+// Inisialisasi Isotope
 if (
   typeof imagesLoaded !== 'undefined' &&
   typeof Isotope !== 'undefined'
@@ -217,22 +215,23 @@ if (
 
     if (!isotopeContainer) return;
 
-    let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
-    let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
-    let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
+    const layout = isotopeItem.getAttribute('data-layout') || 'masonry';
+    const filter = isotopeItem.getAttribute('data-default-filter') || '*';
+    const sort = isotopeItem.getAttribute('data-sort') || 'original-order';
 
     let initIsotope = null;
     let portfolioLightbox = null;
 
 
     /**
-     * Buat satu instance GLightbox khusus produk
-     * Daftar gambarnya akan diperbarui saat diklik
+     * GLightbox khusus produk.
+     * Selector dibuat khusus agar tidak mengambil
+     * semua gambar secara otomatis.
      */
     if (typeof GLightbox !== 'undefined') {
 
       portfolioLightbox = GLightbox({
-        selector: null,
+        selector: '.portfolio-lightbox-placeholder',
         loop: true
       });
 
@@ -240,73 +239,7 @@ if (
 
 
     /**
-     * Klik gambar produk
-     */
-    isotopeContainer.addEventListener('click', function(e) {
-
-      const link = e.target.closest('a.glightbox');
-
-      if (!link) return;
-
-      e.preventDefault();
-
-      if (!initIsotope || !portfolioLightbox) return;
-
-
-      /**
-       * Ambil semua gambar yang sedang tampil
-       * berdasarkan filter Isotope
-       */
-      const visibleLinks = initIsotope.filteredItems
-        .map(function(item) {
-
-          return item.element.querySelector('a.glightbox');
-
-        })
-        .filter(function(item) {
-
-          return item !== null;
-
-        });
-
-
-      /**
-       * Susun gambar untuk GLightbox
-       */
-      const galleryElements = visibleLinks.map(function(item) {
-
-        return {
-          href: item.href,
-          type: 'image'
-        };
-
-      });
-
-
-      /**
-       * Cari posisi gambar yang diklik
-       */
-      const clickedIndex = visibleLinks.indexOf(link);
-
-      if (clickedIndex === -1) return;
-
-
-      /**
-       * Masukkan gambar sesuai filter aktif
-       */
-      portfolioLightbox.setElements(galleryElements);
-
-
-      /**
-       * Buka gambar sesuai posisi yang diklik
-       */
-      portfolioLightbox.openAt(clickedIndex);
-
-    });
-
-
-    /**
-     * Inisialisasi Isotope
+     * Inisialisasi Isotope setelah gambar selesai dimuat
      */
     imagesLoaded(isotopeContainer, function() {
 
@@ -321,7 +254,72 @@ if (
 
 
     /**
-     * Portfolio filters
+     * Klik gambar produk
+     */
+    isotopeContainer.addEventListener('click', function(e) {
+
+      const link = e.target.closest('a.glightbox');
+
+      if (!link) return;
+
+      // Pastikan yang diklik adalah gambar di Portfolio
+      if (!isotopeContainer.contains(link)) return;
+
+      e.preventDefault();
+
+      if (!initIsotope || !portfolioLightbox) return;
+
+
+      /**
+       * Ambil seluruh gambar yang sedang tampil
+       * berdasarkan filter Isotope yang aktif.
+       */
+      const visibleLinks = initIsotope.filteredItems
+        .map(function(item) {
+          return item.element.querySelector('a.glightbox');
+        })
+        .filter(function(item) {
+          return item !== null;
+        });
+
+
+      /**
+       * Susun daftar gambar sesuai urutan tampil
+       */
+      const galleryElements = visibleLinks.map(function(item) {
+
+        return {
+          href: item.getAttribute('href'),
+          type: 'image'
+        };
+
+      });
+
+
+      /**
+       * Cari posisi gambar yang diklik
+       */
+      const clickedIndex = visibleLinks.indexOf(link);
+
+      if (clickedIndex === -1 || galleryElements.length === 0) return;
+
+
+      /**
+       * Perbarui isi galeri sesuai filter aktif
+       */
+      portfolioLightbox.setElements(galleryElements);
+
+
+      /**
+       * Buka gambar pada posisi yang diklik
+       */
+      portfolioLightbox.openAt(clickedIndex);
+
+    });
+
+
+    /**
+     * Tombol filter Portfolio
      */
     isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
 
