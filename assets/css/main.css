@@ -2134,139 +2134,6 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 15px;
 }
 
-
-/* ==================================================
-   KOMITMEN MUTU - PENYESUAIAN TINGGI GAMBAR
-================================================== */
-
-/* Baris utama */
-#tabs .row.justify-content-between {
-  display: flex;
-  align-items: stretch;
-}
-
-/* Kolom teks kiri menjadi acuan tinggi */
-#tabs .row.justify-content-between > .col-lg-5 {
-  display: flex;
-  align-self: stretch;
-}
-
-#tabs .nav-tabs {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 0;
-  border: 0;
-}
-
-/* Pilihan tab */
-#tabs .nav-tabs .nav-item {
-  display: flex;
-  flex: 1 1 0;
-  width: 100%;
-}
-
-#tabs .nav-tabs .nav-link {
-  display: flex;
-  width: 100%;
-  height: 100%;
-}
-
-/* Kolom gambar kanan */
-#tabs .row.justify-content-between > .col-lg-6 {
-  display: flex;
-  align-self: stretch;
-}
-
-#tabs .tab-content {
-  position: relative;
-  width: 100%;
-  min-width: 0;
-}
-
-/* Gambar mengikuti tinggi kolom teks */
-#tabs .tab-pane.active.show {
-  width: 100%;
-  height: 100%;
-}
-
-#tabs .tab-pane.active.show img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 15px;
-}
-
-/* Tablet dan HP */
-@media (max-width: 991px) {
-  #tabs .row.justify-content-between {
-    display: block;
-  }
-
-  #tabs .row.justify-content-between > .col-lg-5 {
-    width: 100%;
-  }
-
-  #tabs .row.justify-content-between > .col-lg-6 {
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  #tabs .tab-content {
-    height: 300px;
-  }
-
-  #tabs .tab-pane.active.show {
-    height: 300px;
-  }
-
-  #tabs .tab-pane.active.show img {
-    height: 300px;
-  }
-}
-/* ==================================================
-   TAMPILAN TABLET DAN HP
-================================================== */
-
-@media (max-width: 991px) {
-
-  /* Tentang Kami */
-  .about .about-image {
-    width: 100%;
-    height: auto;
-    min-height: 0;
-  }
-
-  /* Kolom teks */
-  #tabs .row.justify-content-between > .col-lg-5 {
-    width: 100%;
-  }
-
-  /* Kolom gambar */
-  #tabs .row.justify-content-between > .col-lg-6 {
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  #tabs .tab-content {
-    width: 100%;
-    height: 300px;
-    flex: none;
-  }
-
-  #tabs .tab-pane.active.show {
-    height: 100%;
-    flex: 1;
-  }
-
-  #tabs .tab-pane.active.show img {
-    width: 100%;
-    height: 100%;
-  }
-}
-
 /* ==================================================
    LOGO NAVBAR PT KUSUMA MULIA PLASINDO INFITEX
 ================================================== */
@@ -2350,24 +2217,91 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
 }
 
-/* Gambar tetap mengikuti tinggi kolom kanan */
+/* ==================================================
+   PENYESUAIAN TINGGI GAMBAR KOMITMEN MUTU
+================================================== */
+
+/* Baris utama: kedua kolom mengikuti tinggi yang sama */
+#tabs .row.justify-content-between {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Kolom kiri sebagai acuan tinggi */
+#tabs .row.justify-content-between > .col-lg-5 {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Daftar tab memenuhi kolom kiri */
+#tabs .nav-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  border: 0;
+}
+
+#tabs .nav-tabs .nav-item {
+  display: flex;
+  flex: 1 1 0;
+  width: 100%;
+}
+
+#tabs .nav-tabs .nav-link {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Kolom kanan mengikuti tinggi baris */
 #tabs .row.justify-content-between > .col-lg-6 {
   display: flex;
   align-items: stretch;
 }
 
 #tabs .tab-content {
+  position: relative;
   width: 100%;
+  min-width: 0;
 }
 
-#tabs .tab-pane.active.show,
-#tabs .tab-pane.active.show img {
+/* Gambar tab aktif */
+#tabs .tab-pane.active.show {
   width: 100%;
   height: 100%;
 }
 
 #tabs .tab-pane.active.show img {
   display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
   border-radius: 15px;
+}
+
+/* Tampilan tablet dan HP */
+@media (max-width: 991px) {
+  #tabs .row.justify-content-between {
+    display: block;
+  }
+
+  #tabs .row.justify-content-between > .col-lg-5,
+  #tabs .row.justify-content-between > .col-lg-6 {
+    width: 100%;
+  }
+
+  #tabs .row.justify-content-between > .col-lg-6 {
+    margin-top: 20px;
+  }
+
+  #tabs .tab-content {
+    height: 300px;
+  }
+
+  #tabs .tab-pane.active.show,
+  #tabs .tab-pane.active.show img {
+    height: 300px;
+  }
 }
