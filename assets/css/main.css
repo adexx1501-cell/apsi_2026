@@ -2136,15 +2136,16 @@ h1, h2, h3, h4, h5, h6 {
 
 
 /* ==================================================
-   KOMITMEN MUTU - TINGGI GAMBAR PRESISI
+   MENYAMAKAN TINGGI GAMBAR KOMITMEN MUTU
 ================================================== */
 
+/* Baris utama */
 #tabs .row.justify-content-between {
   display: flex;
   align-items: stretch;
 }
 
-/* Kolom teks */
+/* Kolom teks kiri */
 #tabs .row.justify-content-between > .col-lg-5 {
   display: flex;
   align-items: stretch;
@@ -2152,11 +2153,11 @@ h1, h2, h3, h4, h5, h6 {
 
 #tabs .nav-tabs {
   width: 100%;
-  margin: 0;
-  padding: 0;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin: 0;
 }
 
 #tabs .nav-tabs .nav-item {
@@ -2169,28 +2170,27 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
 }
 
-/* Kolom gambar */
+/* Kolom gambar kanan */
 #tabs .row.justify-content-between > .col-lg-6 {
   display: flex;
   align-items: stretch;
 }
 
 #tabs .tab-content {
-  position: relative;
-  width: 100%;
-  min-width: 0;
-}
-
-/* Ketiga gambar tab */
-#tabs .tab-pane {
-  width: 100%;
-}
-
-#tabs .tab-pane.active.show {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
+  position: relative;
+}
+
+/* Semua tab gambar */
+#tabs .tab-pane {
+  width: 100%;
+  height: 100%;
+}
+
+/* Gambar aktif */
+#tabs .tab-pane.active {
+  display: block;
 }
 
 #tabs .tab-pane img {
@@ -2202,19 +2202,19 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 15px;
 }
 
-/* Tampilan HP */
+/* Tablet dan HP */
 @media (max-width: 991px) {
-  #tabs .row.justify-content-between > .col-lg-5,
-  #tabs .row.justify-content-between > .col-lg-6 {
-    width: 100%;
-  }
-
-  #tabs .row.justify-content-between > .col-lg-6 {
-    margin-top: 20px;
+  #tabs .row.justify-content-between {
+    display: block;
   }
 
   #tabs .tab-content {
-    height: 300px !important;
+    height: 300px;
+    margin-top: 20px;
+  }
+
+  #tabs .tab-pane img {
+    height: 300px;
   }
 }
 /* ==================================================
