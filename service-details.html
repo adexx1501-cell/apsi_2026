@@ -342,7 +342,11 @@
     function showService(key) {
       const service = services[key];
       if (!service) return;
+// Mengganti gambar sesuai layanan
+const serviceImage = document.getElementById("service-image");
 
+serviceImage.src = service.image;
+serviceImage.alt = service.title;
       document.getElementById("service-title").textContent = service.title;
       document.getElementById("service-description").textContent = service.description;
       document.getElementById("service-detail-1").textContent = service.detail1;
