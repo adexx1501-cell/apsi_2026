@@ -1019,6 +1019,19 @@ section,
   flex-shrink: 0;
 }
 
+/* Gambar Logo pada Bagian Layanan */
+.services .service-item .service-icon {
+  display: block;
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin-right: 25px;
+  position: static;
+  border-radius: 10px;
+}
+
 .services .service-item h3 {
   color: color-mix(in srgb, var(--heading-color), transparent 25%);
   font-weight: 700;
@@ -1898,7 +1911,12 @@ h1, h2, h3, h4, h5, h6 {
   .services .service-item {
     padding: 20px;
   }
-
+.services .service-item .service-icon {
+  width: 55px;
+  height: 55px;
+  min-width: 55px;
+  margin-right: 15px;
+}
   .services .service-item h3 {
     font-size: 20px;
   }
