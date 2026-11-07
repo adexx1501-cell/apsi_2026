@@ -1023,9 +1023,9 @@ section,
 /* Ukuran logo layanan disamakan dengan ikon bawaan */
 .services .service-item .service-icon {
   display: block;
-  width: 60px;
-  height: 60px;
-  min-width: 60px;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
   object-fit: contain;
   flex-shrink: 0;
   margin-right: 25px;
