@@ -265,22 +265,22 @@
   }
 
 
-  /**
-   * Frequently Asked Questions Toggle
-   */
-  document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle').forEach((faqItem) => {
+/**
+ * Frequently Asked Questions Toggle
+ */
+document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle').forEach((faqItem) => {
 
-    faqItem.addEventListener('click', () => {
+  faqItem.addEventListener('click', () => {
 
-      const faqParent = faqItem.parentNode;
+    const faqParent = faqItem.parentNode;
 
-      if (faqParent) {
-        faqParent.classList.toggle('faq-active');
-      }
-
-    });
+    if (faqParent) {
+      faqParent.classList.toggle('faq-active');
+    }
 
   });
+
+});
 
 
   /**
