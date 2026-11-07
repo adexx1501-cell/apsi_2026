@@ -108,7 +108,6 @@
 
   /**
    * Scroll to top button
-   * Aman meskipun elemen .scroll-top tidak tersedia di HTML
    */
   const scrollTop = document.querySelector('.scroll-top');
 
@@ -189,37 +188,18 @@
   window.addEventListener("load", initSwiper);
 
 
-/**
- * Initiate GLightbox
- */
-if (typeof GLightbox !== 'undefined') {
+  /**
+   * Initiate GLightbox
+   * Galeri struktur organisasi tetap terpisah.
+   * Galeri produk akan mengikuti filter Portfolio.
+   */
+  if (typeof GLightbox !== 'undefined') {
 
-  // Galeri produk Rayon
-  GLightbox({
-    selector: '.glightbox[data-gallery="portfolio-gallery-rayon"]'
-  });
+    GLightbox({
+      selector: '.glightbox[data-gallery="organization-gallery"]'
+    });
 
-  // Galeri produk Katun
-  GLightbox({
-    selector: '.glightbox[data-gallery="portfolio-gallery-katun"]'
-  });
-
-  // Galeri produk Poliester
-  GLightbox({
-    selector: '.glightbox[data-gallery="portfolio-gallery-poliester"]'
-  });
-
-  // Galeri produk Poliester Katun
-  GLightbox({
-    selector: '.glightbox[data-gallery="portfolio-gallery-tc"]'
-  });
-
-  // Galeri struktur organisasi
-  GLightbox({
-    selector: '.glightbox[data-gallery="organization-gallery"]'
-  });
-
-}
+  }
 
 
   /**
@@ -241,7 +221,81 @@ if (typeof GLightbox !== 'undefined') {
       let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
       let initIsotope;
+      let portfolioLightbox = null;
 
+
+      /**
+       * Update galeri produk sesuai gambar yang sedang ditampilkan
+       */
+      function updatePortfolioLightbox(filteredItems) {
+
+        // Hapus galeri produk sebelumnya
+        if (portfolioLightbox) {
+          portfolioLightbox.destroy();
+          portfolioLightbox = null;
+        }
+
+        // Hapus penanda galeri aktif dari semua gambar
+        isotopeContainer.querySelectorAll('a.glightbox').forEach(link => {
+
+          link.classList.remove('portfolio-lightbox-active');
+
+          // Simpan galeri asli agar tidak hilang
+          if (!link.hasAttribute('data-original-gallery')) {
+            link.setAttribute(
+              'data-original-gallery',
+              link.getAttribute('data-gallery') || ''
+            );
+          }
+
+          // Kembalikan atribut galeri asli
+          link.setAttribute(
+            'data-gallery',
+            link.getAttribute('data-original-gallery')
+          );
+
+        });
+
+
+        // Aktifkan hanya gambar yang sesuai filter Isotope
+        filteredItems.forEach(item => {
+
+          const element = item.element;
+
+          if (!element) return;
+
+          const link = element.matches('a.glightbox')
+            ? element
+            : element.querySelector('a.glightbox');
+
+          if (!link) return;
+
+          link.classList.add('portfolio-lightbox-active');
+
+          // Semua gambar yang tampil masuk satu galeri aktif
+          link.setAttribute('data-gallery', 'portfolio-active');
+
+        });
+
+
+        // Buat ulang GLightbox berdasarkan gambar yang tampil
+        if (
+          typeof GLightbox !== 'undefined' &&
+          isotopeContainer.querySelector('.portfolio-lightbox-active')
+        ) {
+
+          portfolioLightbox = GLightbox({
+            selector: '.portfolio-lightbox-active'
+          });
+
+        }
+
+      }
+
+
+      /**
+       * Inisialisasi Isotope
+       */
       imagesLoaded(isotopeContainer, function() {
 
         initIsotope = new Isotope(isotopeContainer, {
@@ -250,6 +304,18 @@ if (typeof GLightbox !== 'undefined') {
           filter: filter,
           sortBy: sort
         });
+
+
+        // Perbarui galeri setiap kali filter berubah
+        initIsotope.on('arrangeComplete', function(filteredItems) {
+
+          updatePortfolioLightbox(filteredItems);
+
+        });
+
+
+        // Atur galeri sesuai filter awal halaman
+        updatePortfolioLightbox(initIsotope.filteredItems);
 
       });
 
@@ -288,22 +354,22 @@ if (typeof GLightbox !== 'undefined') {
   }
 
 
-/**
- * Frequently Asked Questions Toggle
- */
-document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle').forEach((faqItem) => {
+  /**
+   * Frequently Asked Questions Toggle
+   */
+  document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle').forEach((faqItem) => {
 
-  faqItem.addEventListener('click', () => {
+    faqItem.addEventListener('click', () => {
 
-    const faqParent = faqItem.parentNode;
+      const faqParent = faqItem.parentNode;
 
-    if (faqParent) {
-      faqParent.classList.toggle('faq-active');
-    }
+      if (faqParent) {
+        faqParent.classList.toggle('faq-active');
+      }
+
+    });
 
   });
-
-});
 
 
   /**
