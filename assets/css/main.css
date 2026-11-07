@@ -2136,66 +2136,33 @@ h1, h2, h3, h4, h5, h6 {
    MENYAMAKAN TINGGI GAMBAR KOMITMEN MUTU
 ================================================== */
 
-#tabs .row {
-  display: flex;
+.tabs .row {
   align-items: stretch;
 }
 
-/* Kolom sebelah kiri dan kanan */
-#tabs .row > div {
-  display: flex;
-}
-
-/* Daftar pilihan Komitmen Mutu */
-#tabs .nav-tabs {
-  width: 100%;
+.tabs .row > div {
   display: flex;
   flex-direction: column;
 }
 
-#tabs .nav-tabs .nav-item {
+.tabs .row > div:last-child .tab-content {
   flex: 1;
   display: flex;
 }
 
-#tabs .nav-tabs .nav-link {
+.tabs .tab-content .tab-pane.active {
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
 }
 
-/* Bagian gambar sebelah kanan */
-#tabs .tab-content {
-  width: 100%;
-  display: flex;
-}
-
-#tabs .tab-pane.active {
-  width: 100%;
-  display: flex;
-}
-
-#tabs .tab-pane.active img {
+.tabs .tab-content .tab-pane img {
   display: block;
   width: 100%;
   height: 100%;
-  min-height: 350px;
+  min-height: 100%;
   object-fit: cover;
   object-position: center;
   border-radius: 15px;
-}
-
-/* Tampilan HP dan Tablet */
-@media (max-width: 991px) {
-  #tabs .tab-content {
-    margin-top: 20px;
-  }
-
-  #tabs .tab-pane.active img {
-    height: 300px;
-    min-height: 300px;
-  }
 }
 /* ==================================================
    LOGO NAVBAR PT KUSUMA MULIA PLASINDO INFITEX
