@@ -1263,42 +1263,6 @@ if (newsletterForm) {
 
 }
 </script>
-
-<script>
-/* ==================================================
-   AUTO MENYESUAIKAN TINGGI GAMBAR KOMITMEN MUTU
-================================================== */
-
-function aturTinggiKomitmen() {
-  const teks = document.querySelector('#tabs .nav-tabs');
-  const gambar = document.querySelector('#tabs .tab-content');
-
-  if (!teks || !gambar) return;
-
-  if (window.innerWidth >= 992) {
-    const tinggiTeks = teks.getBoundingClientRect().height;
-    gambar.style.height = tinggiTeks + 'px';
-  } else {
-    gambar.style.height = '300px';
-  }
-}
-
-// Jalankan setelah halaman selesai dimuat
-window.addEventListener('load', aturTinggiKomitmen);
-
-// Jalankan ketika ukuran layar berubah
-window.addEventListener('resize', aturTinggiKomitmen);
-
-// Jalankan ketika tab diganti
-document.querySelectorAll('#tabs [data-bs-toggle="tab"]').forEach(tab => {
-  tab.addEventListener('shown.bs.tab', aturTinggiKomitmen);
-});
-
-// Jalankan setelah font selesai dimuat
-if (document.fonts) {
-  document.fonts.ready.then(aturTinggiKomitmen);
-}
-</script>
 </body>
 
 </html>
